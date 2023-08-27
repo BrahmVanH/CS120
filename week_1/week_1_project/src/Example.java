@@ -1,8 +1,6 @@
 
 // Import the Scanner utility from java util
 import java.util.Scanner;
-import java.lang.Object;
-
 public class Example {
     public static void main (String[] args){
         // Instantiate a new scanner using system.in from the console
