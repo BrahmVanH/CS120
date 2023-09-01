@@ -22,10 +22,13 @@ public class drKowsHamburgerPalace {
 
         int lettuce;
         int cheese;
+        int bacon;
         ConsoleIO.printLine("How many slices of lettuce do you want on your burger?");
         lettuce = ConsoleIO.readInt();
         ConsoleIO.printLine("How many slices of cheese do you want on your burger?");
         cheese = ConsoleIO.readInt();
+        ConsoleIO.printLine("How muany slices of bacon would you like on your burger?");
+        bacon = ConsoleIO.readInt();
         line = 0;
         ConsoleIO.printLine("(_________)");
         while (line < lettuce) {
@@ -35,6 +38,11 @@ public class drKowsHamburgerPalace {
         line = 0;
         while (line < cheese) {
             ConsoleIO.printLine(" =========");
+            line++;
+        }
+        line = 0;
+        while (line < bacon) {
+            ConsoleIO.printLine(" |/\\//\\//|");
             line++;
         }
         ConsoleIO.printLine(" *********");
