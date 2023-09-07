@@ -19,28 +19,28 @@ public class ChangeMaker {
 
         int changeDollars = 0;
 
-        while (changeDollars + 100 < dollars) {
+        while (changeDollars + 100 <= dollars) {
             Dollars.dispenseHundred(true);
             changeDollars += 100;
 
         }
 
-        while (changeDollars + 50 < dollars) {
+        while (changeDollars + 50 <= dollars) {
             Dollars.dispenseFifty(true);
             changeDollars += 50;
         }
 
-        while (changeDollars + 20 < dollars) {
+        while (changeDollars + 20 <= dollars) {
             Dollars.dispenseTwenty(true);
             changeDollars += 20;
         }
 
-        while (changeDollars + 10 < dollars) {
+        while (changeDollars + 10 <= dollars) {
             Dollars.dispenseTen(true);
             changeDollars += 10;
         }
 
-        while (changeDollars + 5 < dollars) {
+        while (changeDollars + 5 <= dollars) {
             Dollars.dispenseFive(true);
             changeDollars += 5;
         }
