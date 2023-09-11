@@ -34,6 +34,8 @@ public class Coins {
         return ret;
     }
 
+
+
     /**
      * Dispenses a quarter from the cash register - this is simulated by printing it out on the screen, and sounding a beep (if requested).
      *

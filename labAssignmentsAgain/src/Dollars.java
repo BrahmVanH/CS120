@@ -19,8 +19,6 @@ public class Dollars {
         dollars %= 10;
         ret += dollars / 5;
         dollars %= 5;
-        ret += dollars / 1;
-        dollars %= 1;
         ret += dollars;
         return ret;
     }
