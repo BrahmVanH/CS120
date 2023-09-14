@@ -1,5 +1,3 @@
-import java.io.Console;
-
 // Name: Brahm Van Houzen
 // Sources: Na
 public class GuessRandomNumber {
@@ -7,8 +5,7 @@ public class GuessRandomNumber {
 
         // Generate random number
         int randomNumber;
-        randomNumber = 1 + (int)(Math.random() * 100);
-
+        randomNumber = 1 + (int) (Math.random() * 100);
 
         int userGuess;
         int numberOfGuesses = 0;
@@ -16,7 +13,7 @@ public class GuessRandomNumber {
         ConsoleIO.printLine("I'm thinking of a number between 1 and 100, guess it.");
         userGuess = ConsoleIO.readInt();
 
-        while ( userGuess != randomNumber) {
+        while (userGuess != randomNumber) {
             if (userGuess > 100 || userGuess <= 0) {
                 ConsoleIO.printLine("Please enter a number between 1 and 100!");
                 userGuess = ConsoleIO.readInt();
@@ -35,9 +32,9 @@ public class GuessRandomNumber {
             }
         }
 
-        if ( userGuess == randomNumber) {
-            numberOfGuesses++;
-            ConsoleIO.printLine("You guessed it! The random number was " + randomNumber + ", it took " + numberOfGuesses + " guesses to get the correct number.");
-        }
+        numberOfGuesses++;
+        ConsoleIO.printLine("You guessed it! The random number was " + randomNumber + ", it took " + numberOfGuesses
+                + " guesses to get the correct number.");
+
     }
 }
