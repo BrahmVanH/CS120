@@ -5,9 +5,12 @@ import java.io.Console;
 public class SleepCalc {
   public static void main(String[] args) {
 
-    //Introduce program
-    ConsoleIO.printLine("This is a program that calculates the total IQ point drop associated with 3 nights of cumulative sleep loss");
-    ConsoleIO.printLine("This is based on Stanley Cohens sleep debt model outlined in 'Sleep Thieves' and makes the audacious assumption that everyone needs the same amount of sleep every night (8 Hours)");
+    // Introduce program
+    ConsoleIO.printLine(
+        "This is a program that calculates the total IQ point drop, or lackthereof, associated with 3 nights of sleep");
+
+    ConsoleIO.printLine(
+        "This is based on Stanley Cohens sleep debt model outlined in 'Sleep Thieves' and makes the audacious assumption that everyone needs the same amount of sleep every night (8 Hours)");
 
     int nightOneSleep;
     int nightTwoSleep;
@@ -30,12 +33,10 @@ public class SleepCalc {
     int nightTwoIqDrop = Sleep.iqLoss(nightTwoSleepLoss);
     int nightThreeIqDrop = Sleep.iqLoss(nightThreeSleepLoss);
 
-
-
     // Return total amount of iqLoss for all three nights
 
     int totalIqDrop = nightOneIqDrop + nightTwoIqDrop + nightThreeIqDrop;
 
-    ConsoleIO.printLine("Your total IQ drop for the last three nights of sleep is " +totalIqDrop+ " points.");
+    ConsoleIO.printLine("Your total IQ drop for the last three nights of sleep is " + totalIqDrop + " points.");
   }
 }
