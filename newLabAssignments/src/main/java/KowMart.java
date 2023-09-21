@@ -67,7 +67,7 @@ public class KowMart {
     }
 
     // Add the cost of bag, if necessary.
-    if (wouldLikeBag) {
+    if (wouldLikeBag && numberOfItems < 3) {
       totalCost += 0.05;
     }
 

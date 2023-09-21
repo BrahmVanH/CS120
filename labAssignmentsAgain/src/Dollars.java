@@ -69,6 +69,7 @@ public class Dollars {
 
     private static void beep() {
         System.out.println("\007");
-        try{Thread.currentThread().sleep(333);}catch(Exception e){}
+        try{
+        Thread.sleep(333);}catch(Exception e){}
     }
 }
