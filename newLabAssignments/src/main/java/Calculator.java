@@ -4,6 +4,7 @@
 public class Calculator {
   public static void main(String[] args) {
     boolean continueCalculating = true;
+    
 
     while (continueCalculating) {
 
