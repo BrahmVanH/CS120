@@ -6,7 +6,6 @@ import lab_ten.ConsoleIO;
 // Name: Brahm Van Houzen
 // Resources: Na
 
-import java.math.*;
 import java.text.*;
 
 public class Grade {
@@ -17,7 +16,7 @@ public class Grade {
     //Declare variables
     double total = 0.0;
     double averageGrade;
-    double grade = 0.0;
+    double grade;
     double highestGrade = 0;
     String letterGrade;
     double gradePoint;
