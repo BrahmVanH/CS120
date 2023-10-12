@@ -2,6 +2,8 @@ package com.lab_thirteen.lab_thirteen;
 
 import javafx.application.*;
 
+// Name: Brahm Van Houzen
+// Resources: Na
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +12,7 @@ import javafx.stage.Stage;
 
 import java.io.Console;
 import java.io.IOException;
+import java.util.Arrays;
 
 import javafx.stage.*;
 import javafx.scene.*;
@@ -24,7 +27,6 @@ public class House extends Application {
 
 
     public double[] createFencePointsArr(double x) {
-        double[] pointsArr = new double[12];
         double y = 495;
         double x1 = x;
         double y1 = y;
@@ -38,20 +40,9 @@ public class House extends Application {
         double y5 = y + 5;
         double x6 = x;
         double y6 = y;
-        pointsArr[0] = x1;
-        pointsArr[1] = y;
-        pointsArr[2] = x2;
-        pointsArr[3] = y2;
-        pointsArr[4] = x3;
-        pointsArr[5] = y3;
-        pointsArr[6] = x4;
-        pointsArr[7] = y4;
-        pointsArr[8] = x5;
-        pointsArr[9] = y5;
-        pointsArr[10] = x6;
-        pointsArr[11] = y6;
-        ConsoleIO.printLine(pointsArr);
-//        double[] pointsArr = new double[]{x1, y1, x2, y2, x3, y3, x4, y4, x5, y5, x6, y6};
+        double[] pointsArr = {x1, y1, x2, y2, x3, y3, x4, y4, x5, y5, x6, y6};
+        String pointsArrString = Arrays.toString(pointsArr);
+        ConsoleIO.printLine(pointsArrString);
         return pointsArr;
     }
     @Override
@@ -74,26 +65,16 @@ public class House extends Application {
         Rectangle windowRight = new Rectangle(435, 385, 25, 45);
         Line windowRightFrameVert = new Line(447.5, 385, 447.5, 430);
 
-        // Fence
-        double fenceSlatX = 250;
-        double fenceSlatY = 495;
-//        Polygon fenceSlat = new Polygon(fenceSlatX, fenceSlatY, fenceSlatX + 5, fenceSlatY + 5, fenceSlatX +5, fenceSlatY + 45, fenceSlatX -5, fenceSlatY + 45, fenceSlatX - 5, fenceSlatY + 5, fenceSlatX, fenceSlatY);
-
-
-
-
-        // Door
-        // Picket fence (loop)
-
+        // Instantiate colors
         Color blue = new Color(.7, .7, 1, 1);
         Color tan = new Color(.81, .68, .34, 1);
         Color brown = new Color(.30, .21, .14, 1);
         Color white = Color.WHITE;
         Color forestGreen = Color.FORESTGREEN;
 
+        // Set component colors
         sky.setFill(blue);
         grass.setFill(forestGreen);
-
         houseFrame.setFill(tan);
         houseRoof.setFill(brown);
         windowLeft.setFill(white);
@@ -103,18 +84,10 @@ public class House extends Application {
         windowRight.setStroke(brown);
         windowRightFrameVert.setStroke(brown);
 
-//        for (int i = 250; i < 350; i += 10) {
-//            double[] points = createFencePointsArr(i);
-//            ConsoleIO.printLine(points);
-////            Polygon fenceSlat = new Polygon(points[1], points[2], points[3], points[4], points[5], points[6], points[7], points[8], points[9], points[10], points[11], points[12]);
-////            fenceSlat.setFill(white);
-////            root.getChildren().add(fenceSlat);
-//        }
-
-        double[] array = createFencePointsArr(250);
-        ConsoleIO.printLine(array);
 
 
+
+        // Add components to root
         root.getChildren().add(sky);
         root.getChildren().add(grass);
         root.getChildren().add(houseFrame);
@@ -124,7 +97,16 @@ public class House extends Application {
         root.getChildren().add(windowRight);
         root.getChildren().add(windowRightFrameVert);
 
+        for (int i = 250; i < 550; i += 10) {
+            double[] points = createFencePointsArr(i);
+            String pointsString = Arrays.toString(points);
+            Polygon fenceSlat = new Polygon(points);
 
+            fenceSlat.setFill(white);
+            root.getChildren().add(fenceSlat);
+        }
+
+        // Render app
         stage.show(); //Shows the window
     }
 }
