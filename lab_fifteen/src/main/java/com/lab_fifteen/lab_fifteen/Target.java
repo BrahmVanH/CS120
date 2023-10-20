@@ -1,15 +1,39 @@
-package com.lab_fifteen.lab_fifteen;
+// Name: Brahm Van Houzen
+// Resources: Na
+
 import javafx.application.*;
 import javafx.stage.*;
 import javafx.scene.*;
 import javafx.scene.image.*;
 import javafx.scene.shape.*;
 import javafx.scene.paint.*;
+import javafx.event.*;
+import javafx.scene.input.*;
+
+import java.util.Random;
 
 public class Target extends Application {
+
+    Random rand = new Random();
+
     public static void main(String[] args) {
         launch(args);
     }
+
+
+    Circle circle1 = new Circle(50, 50, 50);
+    Circle circle2 = new Circle(50, 50, 40);
+    Circle circle3 = new Circle(50, 50, 30);
+    Circle circle4 = new Circle(50, 50, 20);
+    Circle circle5 = new Circle(50, 50, 10);
+    Line line1 = new Line(0, 0, 50, 50);
+    Line line2 = new Line(0, 0, 25, 0);
+    Line line3 = new Line(0, 0, 0, 25);
+
+    Group arrow = new Group(line1, line2, line3);
+    Group targetCircles = new Group(circle1, circle2, circle3, circle4, circle5);
+
+
 
     public void start(Stage stage) {
         Group root = new Group();
@@ -21,11 +45,8 @@ public class Target extends Application {
         Rectangle background = new Rectangle(800, 600);
         background.setFill(new ImagePattern(woodImage));
 
-        Circle circle1 = new Circle(100, 100, 50);
-        Circle circle2 = new Circle(100, 100, 40);
-        Circle circle3 = new Circle(100, 100, 30);
-        Circle circle4 = new Circle(100, 100, 20);
-        Circle circle5 = new Circle(100, 100, 10);
+
+
         Color white = Color.WHITE;
         Color black = Color.BLACK;
         Color blue = Color.BLUE;
@@ -38,14 +59,47 @@ public class Target extends Application {
         circle3.setFill(blue);
         circle4.setFill(red);
         circle5.setFill(yellow);
+        line1.setStroke(red);
+        line1.setStrokeWidth(2);
+        line2.setStroke(red);
+        line2.setStrokeWidth(2);
+        line3.setStroke(red);
+        line3.setStrokeWidth(2);
 
-        Group targetCircles = new Group(circle1, circle2, circle3, circle4, circle5);
-        targetCircles.setTranslateX(300);
-        targetCircles.setTranslateY(200);
+
+
+
         root.getChildren().add(background);
-        root.getChildren().add(targetCircles;
+        root.getChildren().add(targetCircles);
+        root.getChildren().add(arrow);
+
+
+        scene.setOnMousePressed(this::mouseEvents);
 
         stage.show();
+    }
+
+    public void moveArrow(MouseEvent event) {
+        double x = event.getX();
+        double y = event.getY();
+        arrow.setTranslateX(x);
+        arrow.setTranslateY(y);
+    }
+
+    public void moveTargetToRandomLocation() {
+        int x = rand.nextInt(700);
+        int y = rand.nextInt(500);
+        targetCircles.setTranslateX(x);
+        targetCircles.setTranslateY(y);
+    }
+
+    public void mouseEvents(MouseEvent event) {
+        if (event.getButton() == MouseButton.PRIMARY) {
+            moveArrow(event);
+        } else if (event.getButton() == MouseButton.SECONDARY) {
+            moveTargetToRandomLocation();
+        }
+
     }
 
 }
