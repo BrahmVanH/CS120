@@ -1,10 +1,10 @@
-package homework_eight;
+package lab_sixteen.key_events.src.main.java.com.lab_sixteen;
 
 //********************************
 //****DO NOT MODIFY THIS FILE:****
 //********************************
 
-import java.util.*;
+import java.util.Scanner;
 
 /**
  * ConsoleIO is a utility class used for reading input from and writing output to
