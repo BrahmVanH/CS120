@@ -7,7 +7,7 @@
   <groupId>com.final_project</groupId>
   <artifactId>homework_fourteen</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <name>homework_fourteen</name>
+  <name>dogrun</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -58,7 +58,7 @@
             <!-- Default configuration for running with: mvn clean javafx:run -->
             <id>default-cli</id>
             <configuration>
-              <mainClass>com.final_project.homework_fourteen/com.final_project.homework_fourteen.HelloApplication</mainClass>
+              <mainClass>com.final_project.homework_fourteen/com.final_project.homework_fourteen.Dogrun</mainClass>
               <launcher>app</launcher>
               <jlinkZipName>app</jlinkZipName>
               <jlinkImageName>app</jlinkImageName>
