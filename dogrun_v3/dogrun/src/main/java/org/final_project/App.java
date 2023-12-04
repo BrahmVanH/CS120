@@ -15,7 +15,6 @@ import javafx.scene.text.*;
 import javafx.util.Duration;
 import javafx.animation.*;
 
-
 /**
  * JavaFX App
  */
@@ -24,26 +23,18 @@ public class App extends Application {
     Boolean displayMenu = true;
     Boolean playing = false;
     Group root = new Group();
-    
+
     @Override
     public void start(Stage stage) {
-        
+
         Scene scene = new Scene(root, 800, 600);
-        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         stage.setTitle("DogRun Game");
         stage.setScene(scene);
         Menu startMenu = new Menu();
-        
-        if(displayMenu && !startMenu.isVisible()) {
-            startMenu.setVisible(true);
-        }
 
-        if (!displayMenu && startMenu.isVisible()) {
-            startMenu.setVisible(false);
-        }
+       
 
-        System.out.println(startMenu.getChildren());
-        
+
         root.getChildren().add(startMenu);
         stage.show();
     }
