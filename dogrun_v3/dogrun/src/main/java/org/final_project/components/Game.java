@@ -14,6 +14,10 @@ import javafx.scene.image.*;
 import javafx.scene.text.*;
 import javafx.util.Duration;
 import javafx.animation.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 /**
  * JavaFX App
@@ -32,16 +36,25 @@ public class Game extends Group {
 
   public Game() {
 
-    Rectangle background = new Rectangle(0, 0, 800, 600);
     Rectangle sky = new Rectangle(0, 0, 800, 250);
     Rectangle ground = new Rectangle(0, 250, 800, 350);
     Polygon road = new Polygon(375, 250, 425, 250, 575, 600, 225, 600, 375, 250);
+
+    try {
+
+      FileInputStream inputstream = new FileInputStream("/odin_temp_png.png");
+      Image image = new Image(inputstream);
+
+      ImageView dogView = new ImageView(image);
+      this.getChildren().add(dogView);
+    } catch (FileNotFoundException e) {
+      System.out.println(e);
+    }
 
     sky.setFill(blue);
     ground.setFill(tan);
     road.setFill(grey);
 
-    this.getChildren().add(background);
     this.getChildren().add(sky);
     this.getChildren().add(ground);
     this.getChildren().add(road);

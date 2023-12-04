@@ -19,6 +19,7 @@ import javafx.scene.text.FontWeight;
 public class Menu extends Group {
 
   private Color silverChalice = Color.rgb(172, 178, 165);
+  // private EventHandler<MouseEvent> newHandler;
 
   EventHandler<ActionEvent> playBtnHandler = new EventHandler<ActionEvent>() {
     @Override
@@ -42,6 +43,7 @@ public class Menu extends Group {
     playBtn.setFont(font);
 
     playBtn.setOnAction(playBtnHandler);
+    // background.addEventFilter(MouseEvent.MOUSE_CLICKED, newHandler);
 
     background.setFill(silverChalice);
 
@@ -57,8 +59,8 @@ public class Menu extends Group {
     this.getChildren().addAll(background, playBtn);
   }
 
-  public void setPlayButtonHandler(EventHandler<ActionEvent> handler) {
-    this.playBtnHandler = handler;
-  }
+  // public void setHandler(EventHandler<MouseEvent> handler) {
+  //   this.newHandler = handler;
+  // }
 
 }
