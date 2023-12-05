@@ -25,13 +25,17 @@ public class App extends Application {
     Boolean playing = false;
     Group root = new Group();
     Menu startMenu = new Menu();
-    Game game = new Game();
 
+    // Couldn't quite nail down a more direct event handler in Menu to trigger a
+    // view change
     EventHandler<MouseEvent> viewChangeHandler = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent e) {
             if (!startMenu.isVisible()) {
-                game.setVisible(true);
+                // game.setVisible(true);
+                Game game = new Game();
+                root.getChildren().add(game);
+
             }
         }
     };
@@ -43,16 +47,17 @@ public class App extends Application {
         stage.setTitle("DogRun Game");
         stage.setScene(scene);
 
-        game.setVisible(false);
+        // game.setVisible(false);
 
-        if (!startMenu.isVisible()) {
-            game.setVisible(true);
-        }
+        // if (!startMenu.isVisible()) {
+        // game.setVisible(true);
+        // }
 
         startMenu.addEventFilter(MouseEvent.MOUSE_CLICKED, viewChangeHandler);
 
         root.getChildren().add(startMenu);
-        root.getChildren().add(game);
+        // root.getChildren().add(game);
+
         stage.show();
     }
 

@@ -59,8 +59,6 @@ public class Menu extends Group {
     this.getChildren().addAll(background, playBtn);
   }
 
-  // public void setHandler(EventHandler<MouseEvent> handler) {
-  //   this.newHandler = handler;
-  // }
+
 
 }

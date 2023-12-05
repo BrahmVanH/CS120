@@ -11,15 +11,17 @@ public class RoadMarker extends Group {
 
   public RoadMarker() {
     Color white = Color.WHITE;
+    Color black = Color.BLACK;
 
     Polygon marker = new Polygon(397.5, 250, 402.5, 250, 405, 260, 395, 260, 397.5, 250);
     
-    marker.setFill(white);
+    marker.setFill(black);
 
     this.getChildren().add(marker);
 
   }
 
+  // Need to add logic to accelerate roadmarker is in gets nearer to simulate real world visuals
   public void markerApproach() {
     double yPos = this.getTranslateY();
     double xScale = this.getScaleX();
