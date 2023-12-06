@@ -18,11 +18,11 @@ public class RoadMarker extends Group {
   private double x1 = 400 - (width1 / 2);
   private double y1 = 250;
   private double x2 = 400 + (width1 / 2);
-  private double y2 = 250;
+  private double y2 = y1;
   private double x3 = 400 + (width2 / 2);
-  private double y3 = 250 + height;
+  private double y3 = y2 + height;
   private double x4 = 400 - (width2 / 2);
-  private double y4 = 250 + height;
+  private double y4 = y1 + height;
   private double x5 = x1;
   private double y5 = y1;
 
