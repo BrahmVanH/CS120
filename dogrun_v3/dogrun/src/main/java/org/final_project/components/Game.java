@@ -27,6 +27,7 @@ public class Game extends Group {
   Color grey = Color.GRAY;
   Color blue = Color.BLUE;
   Color tan = Color.TAN;
+  private final int[] delayDurations = { 0, 1000, 2000, 3000, 4000, 5000, 6000 };
 
   RoadMarker roadMarker = new RoadMarker();
 
@@ -44,16 +45,12 @@ public class Game extends Group {
     return roadMarkers;
   }
 
-  public Timeline animateRoadMarker(RoadMarker roadMarker) {
-    final KeyValue kvScaleX1 = new KeyValue(roadMarker.scaleXProperty(), 5);
-    final KeyValue kvScaleY1 = new KeyValue(roadMarker.scaleYProperty(), 5);
-    final KeyValue kvTranslateY1 = new KeyValue(roadMarker.translateYProperty(), 600);
+  public void animateRoadMarker(RoadMarker roadMarker) {
+    TranslateTransition markerTransition = new TranslateTransition(Duration.millis(3000), roadMarker);
+    markerTransition.setByY(600);
+    markerTransition.setCycleCount(Transition.INDEFINITE);
 
-    final Timeline timeline = new Timeline(
-        new KeyFrame(new Duration(2000), kvScaleX1, kvScaleY1, kvTranslateY1));
-    timeline.setCycleCount(Timeline.INDEFINITE);
-    timeline.setOnFinished(event -> timeline.playFromStart());
-    return timeline;
+    markerTransition.play();
   }
 
   public Game() {
@@ -63,7 +60,6 @@ public class Game extends Group {
     Polygon road = new Polygon(375, 250, 425, 250, 575, 600, 225, 600, 375, 250);
 
     RoadMarker[] roadMarkers = createRoadmarkers();
-    SequentialTransition seqTransition = new SequentialTransition();
     // try {
 
     // FileInputStream inputstream = new FileInputStream("/odin_temp_png.png");
@@ -79,24 +75,19 @@ public class Game extends Group {
     ground.setFill(tan);
     road.setFill(grey);
 
-    // this.getChildren().add(sky);
-    // this.getChildren().add(ground);
-    // this.getChildren().add(road);
-    for (int i = 0; i < roadMarkers.length; i++) {
-      RoadMarker marker = roadMarkers[i];
-      
-      Timeline timeline = animateRoadMarker(marker);
-
-      SequentialTransition singleSequentialTransition = new SequentialTransition();
-      singleSequentialTransition.getChildren().add(new PauseTransition(Duration.seconds(i))); 
-      
-      singleSequentialTransition.getChildren().add(timeline);
-      seqTransition.getChildren().add(singleSequentialTransition);
-
+    Timeline timeline = new Timeline();
+    for (RoadMarker marker : roadMarkers) {
       this.getChildren().add(marker);
     }
-    seqTransition.play();
 
+
+    for (int i = 0; i < roadMarkers.length; i++) {
+      int index = i;
+      KeyFrame keyFrame = new KeyFrame(Duration.millis(delayDurations[i]), e -> animateRoadMarker(roadMarkers[index]));
+      timeline.getKeyFrames().add(keyFrame);
+    }
+
+    timeline.play();
   }
 
 }
