@@ -39,7 +39,6 @@ public class Game extends Group {
   private double x5 = x1;
   private double y5 = y1;
 
-
   private Color grey = Color.GRAY;
   private Color blue = Color.BLUE;
   private Color tan = Color.TAN;
@@ -81,6 +80,9 @@ public class Game extends Group {
     // System.out.println(e);
     // }
 
+    RandomItem randomItem = new RandomItem();
+    randomItem.animateItem(roadWidth2);
+
     // Style
     sky.setFill(blue);
     ground.setFill(tan);
@@ -90,6 +92,7 @@ public class Game extends Group {
     this.getChildren().add(sky);
     this.getChildren().add(ground);
     this.getChildren().add(road);
+    this.getChildren().add(randomItem);
 
     // Create new timeline for roadMarker animations
     Timeline timeline = new Timeline();
