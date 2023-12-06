@@ -2,6 +2,7 @@ package org.final_project;
 
 public class SystemInfo {
 
+
     public static String javaVersion() {
         return System.getProperty("java.version");
     }
