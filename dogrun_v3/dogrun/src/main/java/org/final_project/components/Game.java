@@ -27,13 +27,9 @@ public class Game extends Group {
   Color grey = Color.GRAY;
   Color blue = Color.BLUE;
   Color tan = Color.TAN;
-  private final int[] delayDurations = { 0, 1000, 2000, 3000, 4000, 5000, 6000 };
+  private final int[] delayDurations = { 0, 500, 1000, 1500, 2000, 2500, 3000 };
 
   RoadMarker roadMarker = new RoadMarker();
-
-  public void approachMarker(long time) {
-    roadMarker.markerApproach();
-  }
 
   public RoadMarker[] createRoadmarkers() {
     RoadMarker[] roadMarkers = new RoadMarker[6];
@@ -45,13 +41,20 @@ public class Game extends Group {
     return roadMarkers;
   }
 
-  public void animateRoadMarker(RoadMarker roadMarker) {
-    TranslateTransition markerTransition = new TranslateTransition(Duration.millis(3000), roadMarker);
-    markerTransition.setByY(600);
-    markerTransition.setCycleCount(Transition.INDEFINITE);
+  // public void animateRoadMarker(RoadMarker roadMarker) {
+  //   TranslateTransition markerTranslationTx = new TranslateTransition(Duration.millis(3000), roadMarker);
+  //   ScaleTransition markerScaleTx = new ScaleTransition(Duration.millis(3000), roadMarker);
+  //   markerTranslationTx.setByY(600);
+  //   markerTranslationTx.setCycleCount(Transition.INDEFINITE);
+  //   markerScaleTx.setToX(7);
+  //   markerScaleTx.setToY(7);
 
-    markerTransition.play();
-  }
+  //   markerScaleTx.setCycleCount(Transition.INDEFINITE);
+
+  //   markerTranslationTx.play();
+  //   markerScaleTx.play();
+
+  // }
 
   public Game() {
 
@@ -75,15 +78,18 @@ public class Game extends Group {
     ground.setFill(tan);
     road.setFill(grey);
 
+    this.getChildren().add(sky);
+    this.getChildren().add(ground);
+    this.getChildren().add(road);
+
     Timeline timeline = new Timeline();
     for (RoadMarker marker : roadMarkers) {
       this.getChildren().add(marker);
     }
 
-
     for (int i = 0; i < roadMarkers.length; i++) {
       int index = i;
-      KeyFrame keyFrame = new KeyFrame(Duration.millis(delayDurations[i]), e -> animateRoadMarker(roadMarkers[index]));
+      KeyFrame keyFrame = new KeyFrame(Duration.millis(delayDurations[i]), e -> roadMarkers[index].animateRoadMarker());
       timeline.getKeyFrames().add(keyFrame);
     }
 

@@ -1,7 +1,9 @@
 package org.final_project.components;
 
+import javafx.animation.*;
 import javafx.scene.*;
 import javafx.scene.shape.*;
+import javafx.util.Duration;
 import javafx.scene.paint.*;
 
 public class RoadMarker extends Group {
@@ -13,32 +15,35 @@ public class RoadMarker extends Group {
     Color white = Color.WHITE;
     Color black = Color.BLACK;
 
-    Polygon marker = new Polygon(397.5, 250, 402.5, 250, 405, 260, 395, 260, 397.5, 250);
-    
-    marker.setFill(black);
+    Polygon marker = new Polygon(
+      397.5, 250,
+     402.5, 250, 
+     404, 260, 
+     395.5, 260, 
+     397.5, 250);
+
+    marker.setFill(white);
 
     this.getChildren().add(marker);
 
   }
 
-  // Need to add logic to accelerate roadmarker is in gets nearer to simulate real world visuals
-  public void markerApproach() {
-    double yPos = this.getTranslateY();
-    double xScale = this.getScaleX();
-    double yScale = this.getScaleY();
+  // Need to add logic to accelerate roadmarker is in gets nearer to simulate real
+  // world visuals
+  public void animateRoadMarker() {
+    TranslateTransition markerTranslationTx = new TranslateTransition(Duration.millis(3000), this);
+    ScaleTransition markerScaleTx = new ScaleTransition(Duration.millis(3000), this);
+    markerTranslationTx.setByY(650);
+    markerTranslationTx.setCycleCount(Transition.INDEFINITE);
+    markerScaleTx.setInterpolator(Interpolator.EASE_BOTH);
+    markerScaleTx.setToX(7);
+    markerScaleTx.setToY(10);
+    markerTranslationTx.setInterpolator(Interpolator.EASE_BOTH);
 
-    yVel = 1;
-    scaleVelX = 0.5;
-    scaleVelY = 0.5;
+    markerScaleTx.setCycleCount(Transition.INDEFINITE);
 
-    yPos = yPos - yVel;
-    xScale = xScale + scaleVelX;
-    yScale = yScale + scaleVelY;
-
-    this.setTranslateY(yPos);
-    this.setScaleX(xScale);
-    this.setScaleY(yScale);
-
+    markerTranslationTx.play();
+    markerScaleTx.play();
   }
 
 }
