@@ -1,19 +1,17 @@
 package org.final_project.components;
 
-import java.io.File;
 import java.net.*;
 import javafx.scene.image.*;
 import javafx.animation.*;
 import javafx.scene.*;
-import javafx.scene.shape.*;
 import javafx.util.Duration;
-import javafx.scene.paint.*;
 
 public class RandomItem extends Group {
   private Image dogTreatImg;
   private double biscuitWidth = 10;
   private double biscuitHeight = 10;
   private String[] itemsArr = { "dogTreat" };
+  private boolean badItem;
 
   private ImageView getItemImgView(String itemString) {
     String imagePath = "/image/dogBiscuit.png";
@@ -33,15 +31,22 @@ public class RandomItem extends Group {
   }
 
   public RandomItem() {
-    int rand = (int) Math.floor((Math.random() * itemsArr.length));
-    String randomItemString = itemsArr[rand];
+    int randBadItemInt = (int) Math.floor(Math.random() * 2);
+    int randItemInt = (int) Math.floor((Math.random() * itemsArr.length));
+    String randomItemString = itemsArr[randItemInt];
     ImageView randomItemImg = getItemImgView(randomItemString);
     randomItemImg.setFitWidth(biscuitWidth);
     randomItemImg.setFitHeight(biscuitHeight);
+    if (randBadItemInt == 1) {
+      this.badItem = true;
+    } else {
+      this.badItem = false;
+    }
 
     randomItemImg.setTranslateX(380);
     randomItemImg.setTranslateY(250);
     this.getChildren().add(randomItemImg);
+
 
   }
 

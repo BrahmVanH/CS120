@@ -1,13 +1,10 @@
 package org.final_project.components;
 
-import java.io.File;
 import java.net.*;
 import javafx.scene.image.*;
 import javafx.animation.*;
 import javafx.scene.*;
-import javafx.scene.shape.*;
 import javafx.util.Duration;
-import javafx.scene.paint.*;
 
 public class Dog extends Group {
   private Image leftTrotDog;
@@ -40,12 +37,14 @@ public class Dog extends Group {
   public Dog() {
     getDogImgViews();
     if (imageArray != null) {
+      // create timeline with keyframe that toggles images back and forth
       Duration duration = Duration.seconds(0.20);
       KeyFrame keyFrame = new KeyFrame(duration, e -> toggleImages());
       Timeline timeline = new Timeline(keyFrame);
       timeline.setCycleCount(Timeline.INDEFINITE);
       timeline.play();
 
+      // position both images
       for (ImageView view : imageArray) {
         view.setFitWidth(75);
         view.setFitHeight(120);

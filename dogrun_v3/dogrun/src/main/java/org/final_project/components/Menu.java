@@ -1,20 +1,14 @@
 package org.final_project.components;
 
-import javafx.application.Application;
 import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.stage.Stage;
 import javafx.scene.paint.*;
 import javafx.event.*;
-import javafx.scene.input.*;
 import javafx.util.Duration;
 import javafx.animation.*;
 import javafx.scene.control.Button;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 
 public class Menu extends Group {
 

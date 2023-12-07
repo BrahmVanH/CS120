@@ -1,23 +1,15 @@
 package org.final_project.components;
 
-import org.final_project.components.RoadMarker;
-import org.final_project.lib.Animator;
-
-import javafx.application.Application;
-import javafx.stage.*;
 import javafx.scene.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.shape.*;
 import javafx.scene.paint.*;
-import javafx.event.*;
-import javafx.scene.input.*;
-import javafx.scene.image.*;
-import javafx.scene.text.*;
 import javafx.util.Duration;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.animation.*;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 /**
  * JavaFX Group
@@ -44,22 +36,23 @@ public class Game extends Group {
   private Color tan = Color.TAN;
   private final int[] delayDurations = { 0, 500, 1000, 1500, 2000, 2500, 3000 };
   private double[] roadPoints = { x1, y1, x2, y2, x3, y3, x4, y4, x5, y5 };
-
+  private List<ImageView> randomItems = new ArrayList<>();
   // Create roadMarker array
   private RoadMarker[] roadMarkers = new RoadMarker[6];
+  private Dog dogCharacter = new Dog();
 
-  /**
-   * Assigns roadMarker instances to roadMarkers array members
-   * 
-   * @return void
-   */
-  private void createRoadMarkers() {
-
-    for (int i = 0; i < roadMarkers.length; i++) {
-      roadMarkers[i] = new RoadMarker();
+  AnimationTimer gameLoop = new AnimationTimer() {
+    @Override
+    public void handle(long now) {
+      // Check for collision
+      for (ImageView item : randomItems) {
+        if (dogCharacter.getBoundsInParent().intersects(item.getBoundsInParent())) {
+          // Collision detected, perform actions
+          handleCollision();
+        }
+      }
     }
-
-  }
+  };
 
   // Constructor function, creates scenery and
   public Game() {
@@ -67,7 +60,6 @@ public class Game extends Group {
     Rectangle sky = new Rectangle(0, 0, 800, 250);
     Rectangle ground = new Rectangle(0, 250, 800, 350);
     Polygon road = new Polygon(roadPoints);
-    Dog dogCharacter = new Dog();
 
     createRoadMarkers();
 
@@ -93,6 +85,7 @@ public class Game extends Group {
     for (RoadMarker marker : roadMarkers) {
       this.getChildren().add(marker);
     }
+    ;
 
     // Create key frame for each roadMarker object with a delay corresponding to
     // delayDurations array members
@@ -101,8 +94,28 @@ public class Game extends Group {
       KeyFrame keyFrame = new KeyFrame(Duration.millis(delayDurations[i]), e -> roadMarkers[index].animateRoadMarker());
       timeline.getKeyFrames().add(keyFrame);
     }
+    ;
 
     timeline.play();
+    gameLoop.start();
+  }
+
+  /**
+   * Assigns roadMarker instances to roadMarkers array members
+   * 
+   * @return void
+   */
+  private void createRoadMarkers() {
+
+    for (int i = 0; i < roadMarkers.length; i++) {
+      roadMarkers[i] = new RoadMarker();
+    }
+
+  }
+
+  private void handleCollision() {
+    // if bad remove points
+    // if good add points
   }
 
 }
