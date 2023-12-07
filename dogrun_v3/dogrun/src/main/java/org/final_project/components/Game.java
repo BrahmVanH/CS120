@@ -33,6 +33,8 @@ public class Game extends Group {
   private double x5 = x1;
   private double y5 = y1;
 
+  private double roadXatio = (roadWidth2 / 2) / (roadWidth1 / 2);
+
   private int score = 0;
 
   private Color grey = Color.GRAY;
@@ -49,10 +51,9 @@ public class Game extends Group {
   AnimationTimer gameLoop = new AnimationTimer() {
     @Override
     public void handle(long now) {
-      // Check for collision
+      // Check for collision between player character and item on road
       for (RandomItem item : randomItems) {
         if (dogCharacter.getBoundsInParent().intersects(item.getBoundsInParent())) {
-          // Collision detected, perform actions
           handleCollision(item);
 
         }
@@ -67,11 +68,18 @@ public class Game extends Group {
     Rectangle ground = new Rectangle(0, 250, 800, 350);
     Polygon road = new Polygon(roadPoints);
 
+    // Populate roadMarkers array
     createRoadMarkers();
 
-    RandomItem randomItem = new RandomItem();
-    randomItem.animateItem(roadWidth2);
-    randomItems.add(0, randomItem);
+    // Populate randomItems ArrayList
+    createRandomItems();
+
+    // Iterate through ArrayList of RandomItems and append to view
+    for (int i = 0; i < randomItems.toArray().length; i++) {
+      RandomItem item = randomItems.get(i);
+      this.getChildren().add(item);
+      item.animateItem(roadXatio);
+    }
 
     // Style
     sky.setFill(blue);
@@ -82,7 +90,6 @@ public class Game extends Group {
     this.getChildren().add(sky);
     this.getChildren().add(ground);
     this.getChildren().add(road);
-    this.getChildren().add(randomItem);
     this.getChildren().add(dogCharacter);
     this.getChildren().add(scoreBoard);
 
@@ -121,6 +128,38 @@ public class Game extends Group {
 
   }
 
+  /**
+   * Assigns random amount of RandomItems between 15 and 20
+   * 
+   * @return void
+   */
+
+  private void createRandomItems() {
+    int randomAmount = getRandomIntInRange(20, 15);
+    for (int i = 0; i < randomAmount; i++) {
+      randomItems.add(i, new RandomItem(roadWidth1));
+    }
+  }
+
+  /**
+   * Creates a random number between two provided values
+   * 
+   * @param x1
+   * @param x2
+   * @return randomAmount
+   */
+  private int getRandomIntInRange(int x1, int x2) {
+    int rand15 = (int) Math.floor(Math.random() * x1);
+    int rand20 = (int) Math.floor(Math.random() * x2);
+    return Math.abs(rand20 - rand15);
+  }
+
+  /**
+   * Handles the collision between the player character and RandomItems on view
+   * 
+   * @param item
+   * @return void
+   */
   private void handleCollision(RandomItem item) {
     // if bad remove points
     // if good add points
@@ -132,16 +171,24 @@ public class Game extends Group {
     score++;
   }
 
-  // Add logic to prevent moving off screen
+  /**
+   * Takes in a keypress event and moves player character accordingly
+   * @param KeyEvent
+   * @return void
+   */
   private void moveDogChar(KeyEvent event) {
     if (event.getCode() == KeyCode.RIGHT) {
       double x = dogCharacter.getTranslateX();
-      x = x + 10;
-      dogCharacter.setTranslateX(x);
+      if (x < 400 + (roadWidth2 / 2)) {
+        x = x + 10;
+        dogCharacter.setTranslateX(x);
+      }
     } else if (event.getCode() == KeyCode.LEFT) {
       double x = dogCharacter.getTranslateX();
-      x = x - 10;
-      dogCharacter.setTranslateX(x);
+      if (x > 400 - (roadWidth2 / 2)) {
+        x = x - 10;
+        dogCharacter.setTranslateX(x);
+      }
     }
   }
 
