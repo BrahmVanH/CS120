@@ -1,50 +1,72 @@
-// package org.final_project.components;
+package org.final_project.components;
 
-// import java.io.File;
-// import java.net.*;
-// import javafx.scene.image.*;
-// import javafx.animation.*;
-// import javafx.scene.*;
-// import javafx.scene.shape.*;
-// import javafx.util.Duration;
-// import javafx.scene.paint.*;
+import java.io.File;
+import java.net.*;
+import javafx.scene.image.*;
+import javafx.animation.*;
+import javafx.scene.*;
+import javafx.scene.shape.*;
+import javafx.util.Duration;
+import javafx.scene.paint.*;
 
-// public class Dog extends Group {
-//   private Image dogTreatImg;
-//   private double biscuitWidth = 50;
-//   private double biscuitHeight = 70;
-//   String[] itemsArr = { "dogTreat" };
+public class Dog extends Group {
+  private Image leftTrotDog;
+  private Image rightTrotDog;
+  private boolean isLeftTrotVisible = true;
+  private double biscuitWidth = 50;
+  private double biscuitHeight = 70;
+  private String[] itemsArr = { "dogTreat" };
+  private ImageView[] imageArray = new ImageView[2];
 
-//   private ImageView getItemImgView(String itemString) {
-//     String imagePath = "/image/odin_temp_png.png";
-//     URL imageUrl = getClass().getResource(imagePath);
+  private void getDogImgViews() {
+    String leftTrotPath = "/image/odin_left_foot_back.png";
+    String rightTrotPath = "/image/odin_right_foot_back.png";
 
-//     if (imageUrl != null) {
-//       Image image = new Image(imageUrl.toExternalForm());
-//       System.out.println(image);
-//       System.out.println(imagePath);
-//       System.out.println(imageUrl);
+    URL leftTrotUrl = getClass().getResource(leftTrotPath);
+    URL rightTrotUrl = getClass().getResource(rightTrotPath);
 
-//       return new ImageView(image);
-//     } else {
-//       System.out.println("Image not found: " + imagePath);
-//       return null;
-//     }
-//   }
+    if (leftTrotUrl != null || rightTrotUrl != null) {
+      Image leftTrotImg = new Image(leftTrotUrl.toExternalForm());
+      Image rightTrotImg = new Image(rightTrotUrl.toExternalForm());
 
-//   public RandomItem() {
-//     int rand = (int) Math.floor((Math.random() * itemsArr.length));
-//     String randomItemString = itemsArr[rand];
-//     ImageView randomItemImg = getItemImgView(randomItemString);
-//     randomItemImg.setFitWidth(biscuitWidth);
-//     randomItemImg.setFitHeight(biscuitHeight);
-//     Rectangle rect = new Rectangle();
-//     rect.setWidth(100);
-//     rect.setHeight(50);
-//     // randomItemImg.setTranslateX(400);
-//     // randomItemImg.setTranslateY(300);
-//     this.getChildren().add(rect);
-//     this.getChildren().add(randomItemImg);
+      imageArray[0] = new ImageView(leftTrotImg);
+      imageArray[1] = new ImageView(rightTrotImg);
 
-//   }
-// }
+    } else {
+      System.out.println("Image not found: " + leftTrotUrl);
+    }
+  }
+
+  public Dog() {
+    getDogImgViews();
+    if (imageArray != null) {
+      Duration duration = Duration.seconds(0.20);
+      KeyFrame keyFrame = new KeyFrame(duration, e -> toggleImages());
+      Timeline timeline = new Timeline(keyFrame);
+      timeline.setCycleCount(Timeline.INDEFINITE);
+      timeline.play();
+
+      for (ImageView view : imageArray) {
+        view.setFitWidth(75);
+        view.setFitHeight(120);
+        view.setTranslateX(375);
+        view.setTranslateY(480);
+      }
+
+      this.getChildren().add(imageArray[0]);
+      this.getChildren().add(imageArray[1]);
+    }
+
+  }
+
+  private void toggleImages() {
+    if (isLeftTrotVisible) {
+      imageArray[0].setVisible(false);
+      imageArray[1].setVisible(true);
+    } else {
+      imageArray[0].setVisible(true);
+      imageArray[1].setVisible(false);
+    }
+    isLeftTrotVisible = !isLeftTrotVisible;
+  }
+}

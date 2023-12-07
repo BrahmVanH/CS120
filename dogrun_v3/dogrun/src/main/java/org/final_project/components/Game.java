@@ -67,18 +67,9 @@ public class Game extends Group {
     Rectangle sky = new Rectangle(0, 0, 800, 250);
     Rectangle ground = new Rectangle(0, 250, 800, 350);
     Polygon road = new Polygon(roadPoints);
+    Dog dogCharacter = new Dog();
 
     createRoadMarkers();
-    // try {
-
-    // FileInputStream inputstream = new FileInputStream("/odin_temp_png.png");
-    // Image image = new Image(inputstream);
-
-    // ImageView dogView = new ImageView(image);
-    // this.getChildren().add(dogView);
-    // } catch (FileNotFoundException e) {
-    // System.out.println(e);
-    // }
 
     RandomItem randomItem = new RandomItem();
     randomItem.animateItem(roadWidth2);
@@ -93,6 +84,7 @@ public class Game extends Group {
     this.getChildren().add(ground);
     this.getChildren().add(road);
     this.getChildren().add(randomItem);
+    this.getChildren().add(dogCharacter);
 
     // Create new timeline for roadMarker animations
     Timeline timeline = new Timeline();
