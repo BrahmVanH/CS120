@@ -6,6 +6,9 @@ import javafx.animation.*;
 import javafx.scene.*;
 import javafx.util.Duration;
 
+/**
+ * JavaFX RandomItem Group Class
+ */
 public class RandomItem extends Group {
   private Image dogTreatImg;
   private double biscuitWidth = 10;
@@ -14,6 +17,13 @@ public class RandomItem extends Group {
   private boolean badItem;
   private double startingX = 400.0;
 
+  /**
+   * Takes in a predefined string and returns the ImageView corresponding to the
+   * string
+   * 
+   * @param itemString
+   * @return ImageView
+   */
   private ImageView getItemImgView(String itemString) {
     String imagePath = "/image/dogBiscuit.png";
     URL imageUrl = getClass().getResource(imagePath);
@@ -31,11 +41,17 @@ public class RandomItem extends Group {
     }
   }
 
-  public RandomItem(double roadWidth1) {
+  /**
+   * RandomItem constructor function
+   * Uses roadWidth1 to determine initial x value of item
+   * 
+   * @params roadWidth1
+   */
+  public RandomItem(double roadWidth1, double viewPortWidth) {
     double startingXRange = getStartingXRange(roadWidth1);
     int randBadItemInt = (int) Math.floor(Math.random() * 2);
     int randItemInt = (int) Math.floor((Math.random() * itemsArr.length));
-    startingX = (int) Math.floor((Math.random() * startingXRange));
+    startingX = ((int) Math.floor((Math.random() * startingXRange))) + ((viewPortWidth / 2) - (roadWidth1 / 2));
     String randomItemString = itemsArr[randItemInt];
     ImageView randomItemImg = getItemImgView(randomItemString);
     randomItemImg.setFitWidth(biscuitWidth);
@@ -52,8 +68,8 @@ public class RandomItem extends Group {
 
   }
 
-  public void animateItem(double roadYXRatio) {
-    double finalX = getFinalX(startingX, roadYXRatio);
+  public void animateItem(double roadXRatio) {
+    double finalX = getFinalX(startingX, roadXRatio);
     TranslateTransition markerTranslationTy = new TranslateTransition(Duration.millis(3000), this);
     TranslateTransition mTranslateTx = new TranslateTransition(Duration.millis(3000), this);
     ScaleTransition markerScaleT = new ScaleTransition(Duration.millis(3000), this);
@@ -84,6 +100,21 @@ public class RandomItem extends Group {
   }
 
   /**
+   * Takes in the roadwidth1 and returns the starting X value for RandomItem
+   * 
+   * @params roadWidth1
+   * @return starting x range for RandomItem
+   */
+
+  private double getStartingXRange(double roadWidth1) {
+    double viewPortWidth = 800;
+    double roadRangeX1 = (viewPortWidth / 2) - (roadWidth1 / 2);
+    double roadRangeX2 = (viewPortWidth / 2) + (roadWidth1 / 2);
+    System.out.println("viewportWidth/2 - roadWidth1/2: "+((viewPortWidth / 2) - (roadWidth1 / 2)));
+    return ((viewPortWidth / 2) - (roadWidth1 / 2)) + (roadRangeX2 - roadRangeX1);
+  }
+
+  /**
    * Takes in roadWidth ratio and returns the proportionate final x position for
    * the random item
    * 
@@ -100,19 +131,5 @@ public class RandomItem extends Group {
     } else {
       return 400;
     }
-  }
-
-  /**
-   * Takes in the roadwidth1 and returns the starting X value for RandomItem
-   * 
-   * @params roadWidth1
-   * @return starting x range for RandomItem
-   */
-
-  private double getStartingXRange(double roadWidth1) {
-    double viewPortWidth = 800;
-    double roadRangeX1 = (viewPortWidth / 2) - (roadWidth1 / 2);
-    double roadRangeX2 = (viewPortWidth / 2) + (roadWidth1 / 2);
-    return roadRangeX2 - roadRangeX1;
   }
 }

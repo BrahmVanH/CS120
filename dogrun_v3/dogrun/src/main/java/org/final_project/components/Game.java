@@ -14,14 +14,18 @@ import java.util.List;
 import javafx.animation.*;
 
 /**
- * JavaFX Group
+ * JavaFX Game Group Class
  */
 public class Game extends Group {
 
+  private double viewPortWidth = 800;
+
+  // Road shape dimensions
   private double roadWidth1 = 50;
   private double roadWidth2 = 350;
   private double roadHeight = 350;
 
+  // Road shape points
   private double x1 = 400 - (roadWidth1 / 2);
   private double y1 = 250;
   private double x2 = 400 + (roadWidth1 / 2);
@@ -33,21 +37,33 @@ public class Game extends Group {
   private double x5 = x1;
   private double y5 = y1;
 
+  // Road Shape width ratios to proportionately animate RandomItems
   private double roadXatio = (roadWidth2 / 2) / (roadWidth1 / 2);
 
-  private int score = 0;
-
+  // Colors for view
   private Color grey = Color.GRAY;
   private Color blue = Color.BLUE;
   private Color tan = Color.TAN;
+
+  // Delay durations for RoadMarker animations
   private final int[] delayDurations = { 0, 500, 1000, 1500, 2000, 2500, 3000 };
+
+  // Assign Road Shape points to array for later use
   private double[] roadPoints = { x1, y1, x2, y2, x3, y3, x4, y4, x5, y5 };
+
+  // Array list for dynamically creating a TBD amount of randomItems
   private List<RandomItem> randomItems = new ArrayList<>();
-  // Create roadMarker array
+
+  // Create RoadMarker array
   private RoadMarker[] roadMarkers = new RoadMarker[6];
+
+  // Create player character instance
   private Dog dogCharacter = new Dog();
+
+  // Create ScoreBoard instance
   ScoreBoard scoreBoard = new ScoreBoard();
 
+  // Create gameLoop for detecting object collision
   AnimationTimer gameLoop = new AnimationTimer() {
     @Override
     public void handle(long now) {
@@ -74,13 +90,7 @@ public class Game extends Group {
     // Populate randomItems ArrayList
     createRandomItems();
 
-    // Iterate through ArrayList of RandomItems and append to view
-    for (int i = 0; i < randomItems.toArray().length; i++) {
-      RandomItem item = randomItems.get(i);
-      this.getChildren().add(item);
-      item.animateItem(roadXatio);
-    }
-
+    
     // Style
     sky.setFill(blue);
     ground.setFill(tan);
@@ -92,7 +102,13 @@ public class Game extends Group {
     this.getChildren().add(road);
     this.getChildren().add(dogCharacter);
     this.getChildren().add(scoreBoard);
-
+    // Iterate through ArrayList of RandomItems and append to view
+    for (int i = 0; i < randomItems.toArray().length; i++) {
+      RandomItem item = randomItems.get(i);
+      this.getChildren().add(item);
+      item.animateItem(roadXatio);
+    }
+    
     // Create new timeline for roadMarker animations
     Timeline timeline = new Timeline();
 
@@ -137,7 +153,7 @@ public class Game extends Group {
   private void createRandomItems() {
     int randomAmount = getRandomIntInRange(20, 15);
     for (int i = 0; i < randomAmount; i++) {
-      randomItems.add(i, new RandomItem(roadWidth1));
+      randomItems.add(i, new RandomItem(roadWidth1, viewPortWidth));
     }
   }
 
@@ -168,11 +184,11 @@ public class Game extends Group {
       scoreBoard.updateScoreboard(points);
     }
     this.getChildren().remove(item);
-    score++;
   }
 
   /**
    * Takes in a keypress event and moves player character accordingly
+   * 
    * @param KeyEvent
    * @return void
    */
