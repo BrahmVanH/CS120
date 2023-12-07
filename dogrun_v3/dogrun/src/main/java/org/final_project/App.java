@@ -17,6 +17,7 @@ public class App extends Application {
     Boolean displayMenu = true;
     Boolean playing = false;
     Group root = new Group();
+    Scene scene = new Scene(root, 800, 600);
     Menu startMenu = new Menu();
 
     // Couldn't quite nail down a more direct event handler in Menu to trigger a
@@ -25,7 +26,7 @@ public class App extends Application {
         @Override
         public void handle(MouseEvent e) {
             if (!startMenu.isVisible()) {
-                Game game = new Game();
+                Game game = new Game(scene);
                 root.getChildren().add(game);
                 startMenu.setVisible(false);
 
@@ -36,7 +37,6 @@ public class App extends Application {
     @Override
     public void start(Stage stage) {
 
-        Scene scene = new Scene(root, 800, 600);
         stage.setTitle("DogRun Game");
         stage.setScene(scene);
 

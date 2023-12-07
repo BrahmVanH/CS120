@@ -71,4 +71,12 @@ public class RandomItem extends Group {
     markerScaleT.play();
     mTranslateTx.play();
   }
+
+  public Boolean checkIsBadItem() {
+    if(this.badItem) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
